@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=9">
+    <meta name="description" content="Gambolthemes">
+    <meta name="author" content="Gambolthemes">
+    <title>Educonnect | {{ title }}</title>
+
+    <!-- Favicon Icon -->
+    <link rel="icon" type="image/png" href="images/fav.png">
+
+    <!-- Stylesheets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <link href="/fronts/css/responsive.css" rel="stylesheet">
+    <link href="/fronts/css/style.css" rel="stylesheet">
+    <link href="/fronts/css/datepicker.min.css" rel="stylesheet">
+
+    <!-- Vendor Stylesheets -->
+    <link href="/fronts/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/fronts/vendor/feather-icons/feather.css" rel="stylesheet">
+    <link href="/fronts/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="/fronts/vendor/OwlCarousel/assets/owl.carousel.css" rel="stylesheet">
+    <link href="/fronts/vendor/OwlCarousel/assets/owl.theme.default.min.css" rel="stylesheet">
+    <link href="/fronts/vendor/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">
+    @!section('head')
+</head>
+
+<body class="body-bg">
+    <!-- Body Start -->
+    <main class="register-mp" id="swup" class="transition-fade">
+        <div class="main-section">
+            <div class="container">
+                <div class="row justify-content-md-center">
+                    <div class="col-md-5 col-12">
+                        @!section('content')
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <!-- Body End -->
+    <!-- Footer Start -->
+    <!-- Footer End -->
+    <!-- Scripts js -->
+    <script src="/fronts/js/jquery-3.6.0.min.js"></script>
+    <script src="/fronts/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/fronts/vendor/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="/fronts/vendor/OwlCarousel/owl.carousel.js"></script>
+    <script src="/fronts/js/datepicker.min.js"></script>
+    <script src="/fronts/js/i18n/datepicker.en.js"></script>
+    <script src="/fronts/js/custom.js"></script>
+    <script src="/fronts/vendor/swup/unpkg.com_swup@4.3.4_dist_Swup.umd.js"></script>
+    <script src="/fronts/vendor/swup/unpkg.com_@swup_progress-plugin@3.1.0_dist_index.umd.js"></script>
+    <script src="/fronts/vendor/swup/unpkg.com_@swup_scroll-plugin@3.3.0_dist_index.umd.js"></script>
+
+    <script>
+        const swup = new Swup({
+            plugins: [new SwupProgressPlugin(), new SwupScrollPlugin()]
+        });
+    </script>
+    @!section('script')
+
+</body>
+
+</html>

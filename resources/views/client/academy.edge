@@ -1,0 +1,51 @@
+@layout('client/layouts/layout')
+
+@set('title', 'Create Account')
+
+@section('content')
+<div class="login-register-bg">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="lr-right">
+                <div class="logo-flex">
+                    <img src="/fronts/images/logo-2.svg" />
+                    <h3>educonnect</h3>
+                </div>
+                <div class="login-register-form">
+
+                    @if(flashMessages.has('formerror'))
+                    <div class="alert alert-danger mt-3">
+                        {{ flashMessages.get('formerror')}}
+                    </div>
+                    @endif
+                    <form method="POST" action="{{ route("client.updateAcademyPost", {id}) }}">
+                        
+                        <div class="my-3">
+                            <div class="form-group">
+                                <input value="{{ flashMessages.get('university', '') }}" class="form-input h_50"
+                                    name="university" type="text" placeholder="University" required>
+                                @if(flashMessages.has('errors.university'))
+                                <span class="form-error"> {{ flashMessages.get('errors.university') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="form-group">
+                                <input value="{{ flashMessages.get('department', '') }}" class="form-input h_50" name="department"
+                                    type="text" placeholder="Department" required>
+                                @if(flashMessages.has('errors.department'))
+                                <span class="form-error"> {{ flashMessages.get('errors.department') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        
+
+                        <button class="login-btn" type="submit">Continue</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@end

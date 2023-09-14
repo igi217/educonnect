@@ -1,0 +1,127 @@
+@layout('client/layouts/app')
+
+@set('title', project.title)
+
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="main-card">
+                <div class="event-detail-content">
+                    <div class="event-main-img">
+                        <img src="/uploads/project/{{project.image}}" alt="">
+                    </div>
+                    <div class="event-title-dts">
+                        <span class="evnt_time txtbold">{{new
+                            Date(project.createdAt).toLocaleString("en-us", {month: "short",
+                            day: "numeric", hour: "numeric", minute: "numeric"}) }}</span>
+                        <h3 class="event-heading-title text-left">{{ project.title }}</h3>
+
+                    </div>
+                    <div class="d-md-flex d-block align-self-center p-20">
+                        <div class="ttlcnt15 invtbyuser">
+                            <div class="invited_avtar_ee">
+                                <img src="/uploads/avatars/{{ project.user.avatar }}" alt="">
+                            </div>
+                            <span class="evntcunt">{{ project.user.fullName }}</span>
+                        </div>
+                        <div class="ms-auto mt-4 mt-md-0 mt-lg-0 mt-xl-0">
+                            <ul class="egroup-btns">
+                                <li>
+                                    <a class="main--btn view-hover" style="font-size: 13px" href="{{ route('client.project.upvote', {id: project.id}) }}">
+                                        <i class="fa-solid fa-triangle me-2"></i>
+                                        {{ project.$extras.upvotes_count }}
+                                    </a>
+                                </li>
+                                {{-- <li><a class="main--btn view-hover" href="#"><i
+                                            class="feather-check-circle me-2"></i>Going</a></li>
+                                <li><a class="m-share-btn view-hover" href="#shareModal" data-bs-toggle="modal"
+                                        role="button"><i class="feather-share-2"></i></a></li>
+                                <li>
+                                    <div class="view-ellipsis">
+                                        <div class="dropdown">
+                                            <a class="ellipsis-btn dropdown-toggle-no-caret view-hover" href="#"
+                                                role="button" data-bs-toggle="dropdown" aria-expanded="false"><i
+                                                    class="feather-more-vertical"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="post-link-item" href="#"><i
+                                                        class="feather-eye-off icon-mr1"></i>Hide</a>
+                                                <a class="post-link-item" href="#"><i
+                                                        class="feather-bookmark icon-mr1"></i>Save</a>
+                                                <a class="post-link-item" href="user_profile.html"><i
+                                                        class="feather-user icon-mr1"></i>User Profile</a>
+                                                <a class="post-link-item" href="#reportModal" data-bs-toggle="modal"
+                                                    role="button"><i class="feather-flag icon-mr1"></i>Report</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li> --}}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-card mt-30">
+                <div class="categories-left-heading border_bottom">
+                    <h3>Details</h3>
+                </div>
+                <p class="p-20">{{ project.content }}</p>
+            </div>
+            <div class="main-card mt-30">
+                <div class="categories-left-heading border_bottom">
+                    <h3>Files</h3>
+                </div>
+                <div class="p-20 file-box">
+                    @each(file in project.files)
+                    <a class="file-item" href="/uploads/project/{{ file.path }}" target="_blank">
+                        <i class="fa-solid fa-file-text"></i>
+                        <span>{{ file.name }}</span>
+                    </a>
+                    @end
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+
+            <div class="main-card">
+                <div class="categories-left-heading border_bottom">
+                    <h3>Recent Posts</h3>
+                </div>
+                <div class="p-20">
+
+                    <div class="user-info__sections">
+                        <div class="invite_info__sections scroll1452 p-0">
+                            @each(project in others)
+                            <div class="user-follow-card mt-4">
+                                <div class="follow-card-left">
+                                    <div style="width: 100px;flex-grow: 1;height: 80px;" class="follow-avatar box">
+                                        <img src="/uploads/project/{{ project.image }}" alt="">
+                                    </div>
+                                    <div class="follow-name">
+                                        <a href="{{ route('client.profile', {id: project.user.userName}) }}"
+                                            class="profile-view">
+                                            <img src="/uploads/avatars/{{ project.user.avatar }}" alt="Profile" />
+                                            <span style="font-size: 12px;">{{ project.user.fullName }}</span>
+                                        </a>
+                                        <a style="font-size: 14px;"
+                                            href="{{ route('client.project.details', {id: project.id, slug: project.slug}) }}">
+                                            {{ project.title }}
+                                        </a>
+                                        <small style="font-size: 11px;">
+                                            {{new
+                                            Date(project.createdAt).toLocaleString("en-us", {month: "short",
+                                            day: "numeric", hour: "numeric", minute: "numeric"}) }}
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            @end
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@end

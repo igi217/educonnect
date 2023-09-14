@@ -1,0 +1,179 @@
+@layout('client/layouts/app')
+
+@set('title', 'Dashboard')
+
+@section('content')
+<div class="main-section">
+    <div class="container">
+        <div class="row">
+            <div class="col col-xl-8 order-xl-1 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+                <div class="center-section">
+                    <div class="main-tabs">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a href="{{ route('client.dashboard') }}" class="nav-link">All</a>
+                            </li>
+                            @each(userTopic in userTopics)
+                            <li class="nav-item">
+                                <a href="{{ route('client.filterByTopic', {id: userTopic.topic?.id, slug: userTopic.topic?.slug }) }}"
+                                    class="nav-link {{ userTopic.topic.id == topicId ? 'active' : ''}}">{{
+                                    userTopic.topic.name }}</a>
+                            </li>
+                            @end
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="tab-top">
+                                <div class="main-posts">
+                                    <div class="row">
+                                        @each(project in projects)
+                                        <div class="col-md-6">
+                                            <div class="event-main-post">
+                                                <div class="main-photo">
+                                                    <a
+                                                        href="{{ route('client.project.details', {id: project.id, slug: project.slug}) }}">
+                                                        <div class="photo-overlay"></div>
+                                                        <img src="/uploads/project/{{ project.image }}" alt="">
+                                                    </a>
+                                                    {{-- <div class="option-ellipsis">
+                                                        <div class="dropdown">
+                                                            <a class="ellipsis-btn dropdown-toggle-no-caret" href="#"
+                                                                role="button" data-bs-toggle="dropdown"
+                                                                aria-expanded="false"><i
+                                                                    class="fas fa-ellipsis-v"></i></a>
+                                                            <div class="dropdown-menu dropdown-menu-end">
+                                                                <a class="post-link-item" href="#"><i
+                                                                        class="feather-eye-off icon-mr1"></i>Hide</a>
+                                                                <a class="post-link-item" href="#"><i
+                                                                        class="feather-bookmark icon-mr1"></i>Save</a>
+                                                                <a class="post-link-item" href="#"><i
+                                                                        class="feather-user icon-mr1"></i>User
+                                                                    Profile</a>
+                                                                <a class="post-link-item" href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#reportModal"><i
+                                                                        class="feather-flag icon-mr1"></i>Report</a>
+                                                            </div>
+                                                        </div>
+                                                    </div> --}}
+                                                </div>
+                                                <div class="event-body">
+                                                    <a href="{{ route('client.profile', {id: project.user.userName}) }}"
+                                                        class="profile-view">
+                                                        <img src="/uploads/avatars/{{ project.user.avatar }}"
+                                                            alt="Profile" />
+                                                        <span>{{ project.user.fullName }}</span>
+                                                    </a>
+
+                                                    <a href="{{ route('client.project.details', {id: project.id, slug: project.slug}) }}"
+                                                        class="event-title">{{
+                                                        project.title }}</a>
+                                                    <span class="event-type">{{ project.topic.name }}</span>
+                                                    <span class="event-time">{{ new
+                                                        Date(project.createdAt).toLocaleString("en-us", {month: "short",
+                                                        day: "numeric", hour: "numeric", minute: "numeric"}) }}</span>
+                                                    <div class="group-btns">
+                                                        <a href="{{ route('client.project.upvote', {id: project.id}) }}"
+                                                            class="interest-btn btn-hover {{ project.$extras.upvoted ? 'active': ''}}">
+                                                            <i class="fa-solid fa-triangle me-2"></i> {{
+                                                            project.$extras.upvotes_count }}</a>
+                                                        {{-- <button class="share-btn btn-hover" data-bs-toggle="modal"
+                                                            data-bs-target="#shareModal"><i
+                                                                class="feather-share-2"></i></button> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @end
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col col-xl-4 order-xl-2 col-lg-12 order-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="right-side-items mt-0 mt-md-5 mt-lg-5 mt-xl-0">
+                    <div class="main-left-sidebar mt-5 mt-lg-5 mt-xl-0">
+                        <div class="user-data full-width">
+                            <div class="user-profile">
+                                <div style="background-image: url(/uploads/coverimages/{{ auth.user.coverImage }}) !important"
+                                    class="username-dt dpbg-1">
+                                    <div class="usr-pic">
+                                        <img src="/uploads/avatars/{{ auth.user.avatar }}" alt="">
+                                    </div>
+                                </div>
+                                <div class="user-main-details">
+                                    <h4>{{ auth.user.fullName }}</h4>
+                                    <span><i class="feather-map-pin"></i>{{ auth.user.country }}</span>
+                                </div>
+                                <ul class="followers-dts">
+                                    <li>
+                                        <div class="followers-dt-sm">
+                                            <h4>Followers</h4>
+                                            <span>{{ userFollowerCount }}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="followers-dt-sm">
+                                            <h4>Following</h4>
+                                            <span>{{ userFollowingCount }}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="profile-link">
+                                    <a href="/profile/{{ auth.user.userName }}">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-data full-width">
+                            <div class="categories-left-heading">
+                                <h3>Topics</h3>
+                            </div>
+                            <div class="categories-items">
+                                <div class="categories-container">
+                                    @each(topic in topics)
+                                    <a class="category-item"
+                                        href="{{ route('client.filterByTopic', {slug: topic.slug, id: topic.id}) }}">
+                                        {{ topic.name }}
+                                    </a>
+                                    @end
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="user-data mt-4 full-width">
+                        <div class="categories-left-heading">
+                            <h3>Peoples</h3>
+                        </div>
+
+                        @each(user in users)
+                        <div class="sugguest-user">
+                            <div class="sugguest-user-dt">
+                                <a href="user_profile.html"><img src="/uploads/avatars/{{ user.avatar }}" alt=""></a>
+                                <a href="{{ route('client.profile', {id: user.userName}) }}">
+                                    <p>{{ user.fullName }}</p>
+                                    <span>{{ user.university }}</span>
+
+                                </a>
+                            </div>
+                            @if(user.$extras.following == 1)
+                            <a href="{{ route('client.follow', {id: user.id}) }}" class="follow-button">Following</a>
+                            @else
+                            <a href="{{ route('client.follow', {id: user.id}) }}" class="follow-button">Follow</a>
+                            @endif
+                        </div>
+                        @end
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@end

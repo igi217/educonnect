@@ -1,0 +1,62 @@
+@layout('client/layouts/layout')
+
+@set('title', 'Create Account')
+
+@section('content')
+<div class="login-register-bg">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="lr-right">
+                <div class="logo-flex">
+                    <img src="/fronts/images/logo-2.svg" />
+                    <h3>educonnect</h3>
+                </div>
+                <div class="login-register-form">
+
+                    @if(flashMessages.has('formerror'))
+                    <div class="alert alert-danger mt-3">
+                        {{ flashMessages.get('formerror')}}
+                    </div>
+                    @endif
+                    <form method="POST" action="{{ route("client.updateTopicPost", {id}) }}">
+                        <div class="form-group">
+                            <input class="form-input topic-search h_50" type="text" placeholder="Search">
+                        </div>
+                        <div class="my-3 topic-box">
+                            @each(topic in topics)
+                            <label for="{{ topic.id }}" class="topic-badge">
+                                <input type="checkbox" name="topic[]" value="{{ topic.id }}" id="{{ topic.id }}">
+                                {{ topic.name }}
+                            </label>
+                            @end
+                        </div>
+
+
+                        <button class="login-btn" type="submit">Continue</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@end
+
+@section('script')
+<script>
+    let search = document.querySelector('.topic-search');
+    let topics = document.querySelectorAll('.topic-badge');
+
+    search.addEventListener('input', (e) => {
+        let keyword = e.target.value;
+
+        topics.forEach((topic) => {
+            if(topic.textContent.toLowerCase().includes(keyword.toLowerCase())) {
+                topic.classList.remove('d-none')
+            } else {
+                topic.classList.add('d-none')
+            }
+        })
+    })
+</script>
+@end

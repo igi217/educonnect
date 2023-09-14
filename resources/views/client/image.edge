@@ -1,0 +1,59 @@
+@layout('client/layouts/layout')
+
+@set('title', 'Create Account')
+
+@section('content')
+<div class="login-register-bg">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="lr-right">
+                <div class="logo-flex">
+                    <img src="/fronts/images/logo-2.svg" />
+                    <h3>educonnect</h3>
+                </div>
+                <div class="login-register-form">
+
+                    @if(flashMessages.has('formerror'))
+                    <div class="alert alert-danger mt-3">
+                        {{ flashMessages.get('formerror')}}
+                    </div>
+                    @endif
+                    <form method="POST" action="{{ route("client.updateImagePost", {id}) }}" enctype="multipart/form-data">
+
+                        <div class="my-3">
+                            <div class="form-group">
+                                <div class="cover-img-btn">
+                                    <input type="file" class="d-none" name="avatar" accept=".png, .jpg, .jpeg"
+                                        id="avatar" required />
+                                    <label for="avatar" class="btn-outline-new"><i class="feather-image me-3"></i>Upload
+                                        Avatar</label>
+                                </div>
+                                @if(flashMessages.has('errors.avatar'))
+                                <span class="form-error"> {{ flashMessages.get('errors.avatar') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="form-group">
+                                <div class="cover-img-btn">
+                                    <input type="file" class="d-none" name="coverImage" accept=".png, .jpg, .jpeg"
+                                        id="coverImage" required />
+                                    <label for="coverImage" class="btn-outline-new"><i
+                                            class="feather-image me-3"></i>Upload Cover Image</label>
+                                </div>
+                                @if(flashMessages.has('errors.coverImage'))
+                                <span class="form-error"> {{ flashMessages.get('errors.coverImage') }} </span>
+                                @end
+                            </div>
+                        </div>
+
+
+                        <button class="login-btn" type="submit">Continue</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@end

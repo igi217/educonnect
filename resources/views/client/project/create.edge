@@ -1,0 +1,97 @@
+@layout('client/layouts/app')
+
+@set('title', 'New Project')
+
+@section('content')
+<div class="main-section">
+    <div class="container">
+        <form method="POST" data-swup-form data-swup-animation="overlay" action="{{ route('client.project.create') }}"
+            enctype="multipart/form-data" class="row justify-content-md-center">
+            <div class="col-xl-6 col-lg-10 col-md-12">
+                <div class="main-card p-4">
+                    <div class="add-event-cover-image">
+                        <div class="upload-cover">
+                            <div class="cover-img-btn">
+                                <input type="file" id="cover-img" name="image" required>
+                                <label for="cover-img"><i class="feather-image me-3"></i>Upload Cover
+                                    Image</label>
+                            </div>
+                            <p>We recommended using a photo that is 1200x628 pixels.</p>
+                        </div>
+                    </div>
+                    @if(flashMessages.has('errors.image'))
+                    <span class="form-error"> {{ flashMessages.get('errors.image') }} </span>
+                    @end
+                </div>
+                <div class="add-event-tabs">
+
+                    <div class="tab-content">
+                        <div class="tab-pane fade active show">
+                            <div class="event-type-dt main-form mt-4">
+
+                                <div class="tab-content">
+                                    <div class="tab-pane fade active show">
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">Project Title*</label>
+                                            <input class="form-input" type="text" name="title"
+                                                placeholder="Project Title" required />
+                                            @if(flashMessages.has('errors.title'))
+                                            <span class="form-error"> {{ flashMessages.get('errors.title') }} </span>
+                                            @end
+                                        </div>
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">Topic*</label>
+                                            <select name="topicId" class="selectpicker" data-size="5"
+                                                data-live-search="true" required>
+                                                @each(topic in topics)
+                                                <option value="{{ topic.id }}">{{ topic.name }}</option>
+                                                @end
+                                            </select>
+                                            @if(flashMessages.has('errors.topicId'))
+                                            <span class="form-error"> {{ flashMessages.get('errors.topicId') }} </span>
+                                            @end
+                                        </div>
+
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">Description*</label>
+                                            <textarea class="form-textarea" name="content"
+                                                placeholder="Description"></textarea>
+                                            <span class="small-des">Provide more information about your project so
+                                                that users know what to expect.</span>
+                                            @if(flashMessages.has('errors.content'))
+                                            <span class="form-error"> {{ flashMessages.get('errors.content') }} </span>
+                                            @end
+                                        </div>
+                                        <div class="form-group mt-4">
+                                            <label class="form-label">Github*</label>
+                                            <input class="form-input" type="url" name="github" placeholder="https://"
+                                                required />
+                                            @if(flashMessages.has('errors.github'))
+                                            <span class="form-error"> {{ flashMessages.get('errors.github') }} </span>
+                                            @end
+                                        </div>
+                                        <div class="cover-img-btn mt-4">
+                                            <input multiple type="file" class="d-none" name="files" id="coverImage"
+                                                required />
+                                            <label for="coverImage" class="btn-outline-new"><i
+                                                    class="feather-image me-3"></i>Upload Project Files</label>
+                                        </div>
+                                        @if(flashMessages.has('errors.files'))
+                                        <span class="form-error"> {{ flashMessages.get('errors.files') }} </span>
+                                        @end
+
+                                    </div>
+
+                                </div>
+                                <button type="submit" class="main-btn btn-hover h-40 w-100 mt-37 mb-3">Create
+                                    Project</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+@end

@@ -1,0 +1,84 @@
+@layout('client/layouts/layout')
+
+@set('title', 'Create Account')
+
+@section('content')
+<div class="login-register-bg">
+    <div class="row no-gutters">
+        <div class="col-12">
+            <div class="lr-right">
+                <div class="logo-flex">
+                    <img src="/fronts/images/logo-2.svg" />
+                    <h3>educonnect</h3>
+                </div>
+                <div class="login-register-form">
+
+                    @if(flashMessages.has('formerror'))
+                    <div class="alert alert-danger mt-3">
+                        {{ flashMessages.get('formerror')}}
+                    </div>
+                    @endif
+                    <form method="POST" action="{{ route("client.registerPost") }}">
+                        <div class="row my-3">
+                            <div class="form-group w-50">
+                                <input value="{{ flashMessages.get('firstName', '') }}" class="form-input h_50"
+                                    name="firstName" type="text" placeholder="First Name" required>
+                                @if(flashMessages.has('errors.firstName'))
+                                <span class="form-error"> {{ flashMessages.get('errors.firstName') }} </span>
+                                @end
+                            </div>
+                            <div class="form-group w-50">
+                                <input value="{{ flashMessages.get('lastName', '') }}" class="form-input h_50"
+                                    name="lastName" type="text" placeholder="Last Name" required>
+                                @if(flashMessages.has('errors.lastName'))
+                                <span class="form-error"> {{ flashMessages.get('errors.lastName') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="form-group">
+                                <input value="{{ flashMessages.get('country', '') }}" class="form-input h_50"
+                                    name="country" type="text" placeholder="Country" required>
+                                @if(flashMessages.has('errors.country'))
+                                <span class="form-error"> {{ flashMessages.get('errors.country') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="form-group">
+                                <input value="{{ flashMessages.get('email', '') }}" class="form-input h_50" name="email"
+                                    type="email" placeholder="Email Address" required>
+                                @if(flashMessages.has('errors.email'))
+                                <span class="form-error"> {{ flashMessages.get('errors.email') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="form-group">
+                                <input value="{{ flashMessages.get('password', '') }}" class="form-input h_50"
+                                    name="password" type="password" placeholder="Password" required>
+                                @if(flashMessages.has('errors.password'))
+                                <span class="form-error"> {{ flashMessages.get('errors.password') }} </span>
+                                @end
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <div class="form-group">
+                                <textarea class="form-textarea" name="bio"
+                                    placeholder="Bio">{{ flashMessages.get('password', '') }}</textarea>
+                                @if(flashMessages.has('errors.bio'))
+                                <span class="form-error"> {{ flashMessages.get('errors.bio') }} </span>
+                                @end
+                            </div>
+                        </div>
+
+                        <button class="login-btn" type="submit">Register</button>
+                    </form>
+                    <div class="regstr-link">Already have an account? <a href="{{ route('client.login') }}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@end
